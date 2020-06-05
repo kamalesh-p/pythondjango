@@ -1,0 +1,177 @@
+#
+    t = ""
+    for i in range(0, len(a)):
+        t = t + "*" + a[i].upper() + "\n"
+    c = a
+    a = t
+    print(a)
+
+
+    t=""
+    for i in range(0, len(b)):
+        t = t + "____" + c[i].upper() + "____" + "\n"
+        for j in range(0, len(b[i])):
+            t = t + "*" + str(b[i][j]) + "\n"
+    b = t
+    print(b)
+
+#
+return render(
+        request,
+        'mtopic.html',
+        {
+            'title':"Topics",
+        }
+
+#
+
+    for i in range(0 , len(Ms.contents.upper())):
+        print(Ms.contents[i].upper() + "\n")
+    for i in range(0 , len(Ms.contents.upper())):
+        print(Ms.contents[i].upper() + "\n")
+        for j in range( 0 ,len(Ms.subtopics[i])):
+            print(Ms.subtopics[i] + "\n")
+
+#
+
+    for (i = 0; i < len(contents); i++) {
+        println("____" + contents[i] + "____");
+        for (j = 0; j < len(subtopics[i]); j++) {
+            println(subtopics[i][j]);
+        }
+    }
+
+#
+function changeall() {
+        for (j = 0; j < len(subtopics); j++) {
+            tagi = document.getElementById("input" + str(j + 1));
+            for (i = 0; i < len(subtopics[j]); i++) {
+                element = document.getElementById("divs" + str(j + 1));
+                element.innerHTML = "";
+                if (bools["all"]) {
+
+                    tag["p"] = document.createElement("p");
+                    text["p"] = document.createTextNode(subtopics[j][i]);
+                    tag["p"].appendChild(text["p"]);
+                    element = document.getElementById("divs" + str(j + 1));
+                    element.appendChild(tag["p"]);
+                }
+
+            }
+            if (bools["all"])
+                tagi.value = "less...";
+            else
+                tagi.value = "more...";
+        }
+        bools["all"] = not(bools["all"]);
+    }
+  
+#
+
+        <a href="https://www.facebook.com" target="_blank"><img src="https://i2.wp.com/www.patchamhigh.brighton-hove.sch.uk/wp-content/uploads/2017/05/facebook-logo-circle-new.png?fit=300%2C300" width="25" height="25" /></a>
+        Facebook
+
+
+#
+function len(array) {
+            return array.length;
+        }
+        function print(text) {
+            return document.write(text);
+        }
+        function println(text) {
+            return document.writeln(text);
+        }
+        function str(numb) {
+            return numb.toString();
+        }
+        function not(boolean) {
+            return Math.pow(0, boolean);
+        }
+
+#
+#layout {
+            background-color: black;
+            font-size:200%;
+            color:white;
+        }
+        body{
+            background-color: whitesmoke;
+        }
+        h1 {
+            margin: 0.67em 0;
+            font-size: 2em;
+            color: blue;
+        }
+        a {
+            color: aliceblue;
+        }
+
+#
+<style>
+        #mouse {
+            width: 1000px;
+            height: 500px;
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        function showcoordinates(event) {
+            var sx = event.clientX;
+            var sy = event.clientY;
+            element = document.getElementById("pmouse");
+            element.innerHTML = "x = " + sx + "<br/>" + "y = " + sy;
+        }
+    </script>
+    <div id="mouse" onclick="showcoordinates(event)">
+        <p id="pmouse" align="right"> x = 0 <br /> y = 0 </p>
+    </div>
+
+#
+
+            startAngle = Math.PI / startAngle;
+            endAngle = Math.PI / endAngle;
+
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
