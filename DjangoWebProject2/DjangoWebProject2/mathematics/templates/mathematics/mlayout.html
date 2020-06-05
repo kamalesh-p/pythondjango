@@ -1,0 +1,130 @@
+<html>
+<head>
+    <title>Mathematics</title>
+    <style type="text/css" language="css">
+        canvas {
+            border: 1px solid #c3c3c3;
+            background-color:white;
+        }
+        #layout {
+            background-color: black;
+            font-size:200%;
+            color:white;
+        }
+        body{
+            background-color: whitesmoke;
+        }
+        h1 {
+            margin: 0.67em 0;
+            font-size: 2em;
+            color: blue;
+        }
+        a {
+            color: aliceblue;
+            background-color: black;
+            text-decoration: none;
+        }
+        #footer {
+            background-color: black;
+            font-size:200%;
+            color:white;
+        }
+    </style>
+    <script type="text/javascript" language="javascript" id="basic javascript">
+        var length, total, PI = Math.PI, point;
+        // colors
+        var RED = "#FF0000";
+        var BLUE = "#000066";
+        var GREEN = "#003300";
+        var YELLOW = "#FFFF00";
+        var BLACK = "#000000";
+        var WHITE = "#FFFFFF";
+        var CYAN = "#00FFFF";
+        var PINK = "#FF0099";
+        var GREY = "#666666";
+        var ORANGE = "#FF3300";
+        var LIGHTBLUE = "#0033FF";
+        var LIGHTGREEN = "#00FF00";
+        var VIOLET = "#660066";
+        var COLORZ = [RED, BLUE, GREEN, YELLOW, BLACK, CYAN, PINK, GREY, ORANGE, LIGHTBLUE, LIGHTGREEN, VIOLET];
+        function rand() {
+            this.randint = function (startrange, endrange, skip) { return Math.floor((Math.random() + startrange) * endrange * skip); }
+            this.randfloat = function (startrange, endrange, skip) { return (Math.random() + startrange) * endrange * skip; }
+        }
+        var random = new rand;
+        function len(array) {
+            return array.length;
+        }
+        function print(text) {
+            return document.write(text);
+        }
+        function println(text) {
+            return document.writeln(text);
+        }
+        function str(numb) {
+            return numb.toString();
+        }
+        function not(boolean) {
+            return Math.pow(0, boolean);
+        }
+        function int(value) {
+            return Math.round(value);
+        }
+        function cos(angle) {
+            return Math.cos(angle);
+        }
+        function sin(angle) {
+            return Math.sin(angle);
+        }
+        function tan(angle) {
+            return Math.tan(angle);
+        }
+        function pow(numb, power) {
+            return Math.pow(numb, power);
+        }
+        function findNumber(numb) {
+            result = 0;
+            if (Number(numb) === numb) {
+                if (numb % 1 === 0)
+                    result = "int";
+                else
+                    result = "float";
+            }
+            return result;
+        }
+        function float(numb, range) {
+            if (findNumber(numb) == "float") {
+                numb = numb.toFixed(range);
+            }
+            return numb;
+        }
+    </script>
+</head>
+
+<body>
+    <script type="text/javascript" language="javascript">
+        var element, types = ["home", "topic", "comment", "programming", "graphics"], tag = [], text = [];
+        function clicked(id) {
+            for (i = 0; i < len(types); i++) {
+                element = document.getElementById(types[i]);
+                if (types[i] == id) {
+                    element.style["color"] = "black";
+                    element.style["background-color"] = "white";
+                }
+                else {
+                    element.style["color"] = "white";
+                    element.style["background-color"] = "black";
+                }
+            }
+        }
+    </script>
+    <p id="layout">
+        <a href="/home/" id="home" onclick="clicked('home')">Home</a>
+        <a href="/topic/" id="topic" onclick="clicked('topic')">Topic</a>
+        <a href="/comment/" id="comment" onclick="clicked('comment')">Comment</a>
+        <a href="/programming/" id="programming" onclick="clicked('programming')">Programming</a>
+        <a href="/" id="graphics" onclick="clicked('graphics')">Graphics</a>
+    </p>
+    <h2 align="center"><b>{{ title }}</b></h2>
+</body>
+</html>

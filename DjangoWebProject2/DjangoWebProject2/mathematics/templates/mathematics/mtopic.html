@@ -1,0 +1,122 @@
+{% include "mlayout.html" %}
+<html>
+<body>
+    <input type="submit" onclick="changeall()" value="MORE..." id="input0"/>
+    <div id="div0">
+
+    </div>
+    <script type="text/javascript" language="javascript">
+        var contents = [
+        'number sets',
+        'algebra',
+        'geometry',
+        'trigonometry',
+        'matrices and determinants',
+        'vectors',
+        'analytic geometry',
+        'differential calculus',
+        'integral calculus',
+        'differential equations',
+        'series',
+        'probability'
+    ];
+        var subtopics = [
+        ['Set Identities', 'Sets of Numbers', 'Basic Identities', 'Complex Numbers'],
+        ['Factoring Formulas', 'Product Formulas', 'Powers', 'Roots', 'Logarithms', 'Equations', 'Inequalities', 'Compound Interest Formulas'],
+        ['Right Triangle', 'Isosceles Triangle', 'Equilateral Triangle', 'Scalene Triangle', 'Square', 'Rectangle', 'Parallelogram', 'Rhombus', 'Trapezoid', 'Isosceles Trapezoid', 'Isosceles Trapezoid with Inscribed Circle', 'Trapezoid with Inscribed Circle', 'Kite', 'Cyclic Quadrilateral', 'Tangential Quadrilateral', 'General Quadrilateral', 'Regular Hexagon', 'Regular Polygon', 'Circle', 'Sector of a circle', 'Segment of a circle', 'Cube', 'Rectangular Parallelepiped', 'Prism', 'Regular Tetrahedron', 'Regular Pyramid', 'Frustum of a Regular Pyramid', 'Rectangular Right Wedge', 'Platonic Solids', 'Right Circular Cylinder', 'Right Circular Cylinder with an Oblique Plane Face', 'Right Circular Cone', 'Frustum of a Right Circular Cone', 'Sphere', 'Spherical Cap', 'Spherical Sector', 'Spherical Segment', 'Spherical Wedge', 'Ellipsoid', 'Circular Torus'],
+        ['Radian and Degree Measures of Angles', 'Definitions and Graphs of Trigonometric Functions', 'Signs of Trignometric Functions', 'Trigonometric Functions of common Angles', 'Most Important Formulas', 'Reduction formulas', 'Periodicity of Trignometric Functions', 'Relations between Trigonometric Functions', 'Addition and Subtraction Formulas', 'Double Angle Formulas', 'Multiple Angle Formulas', 'Half Angle Formulas', 'Half Angle Tangent Identities', 'Transforming of Trigonometric Expressions to Product', 'Transforming of Trigonometric Expressions to Sum', 'Powers of Trignometric Functions', 'Graphs of Inverse Trignometric Functions', 'Principle Values of Inverse Trigonometric Functions', 'Relations between Inverse Trigonometric Functions', 'Trigonometric Equations', 'Relations to Hyperbolic Functions'],
+        ['Determinants', 'Properties of Determinants', 'Matrices', 'Operations with Matrices', 'Systems of Linear Equations'],
+        ['Vector Coordinates', 'Vector Addition', 'Vector Subtraction', 'Scaling Vectors', 'Scalar Product', 'Vector Product', 'Triple Product'],
+        ['One -Dimensional Coordinate System', 'Two -Dimensional Coordinate System', 'Straight Line in Plane', 'Circle', 'Ellipse', 'Hyperbola', 'Parabola', 'Three -Dimensional Coordinate System', 'Plane', 'Straight Line in Space', 'Quadric Surfaces', 'Sphere'],
+        ['Functions and Their Graphs', 'Limits of Functions', 'Definitions and properties of the Derivative', 'Table of Derivatives', 'Higher Order Derivative', 'Applications of Derivative', 'Differential', 'Multivariable Functions', 'Differential Operators'],
+        ['Indefinite Integral', 'Integrals of Rational Functions', 'Integrals of Irrational Functions', 'Integrals of Trignometric Functions', 'Integrals of Hyperbolic Functions', 'Integrals of Exponential and Logarithmic Functions', 'Reduction Formulas', 'Definite Integral', 'Improper Integral', 'Double Integral', 'Triple Integral', 'Line Integral', 'Surface Integral'],
+        ['First Order Ordinary Differential Equations', 'Second Order Ordinary Differential Equations', 'Some Partial Differential Equations'],
+        ['Arithmetic Series', 'Geometric Series', 'Some Finite Series', 'Infinite Series', 'Properties of Convergent Series', 'Convergent Tests', 'Alternating Series', 'Power Series', 'Differentiation and Integration of Power Series', 'Taylor and Maclaurin Series', 'Power Series Expansions for some Functions', 'Binomial Series', 'Fourier Series'],
+        ['Permutations and Combinations', 'Probability Formulas']
+    ];
+    var tag = [], text = [], bools = [];
+    var element, tagi, id;
+    bools["all"] = 1;
+    function changeall() {
+        for (j = 0; j < len(subtopics); j++) {
+            id = "input" + str(j + 1);
+            tagi = document.getElementById(id);
+            element = document.getElementById("divs" + str(j + 1));
+            element.innerHTML = "";
+            for (i = 0; i < len(subtopics[j]); i++) {
+                if (bools["all"]) {
+                    tag["p"] = document.createElement("p");
+                    text["p"] = document.createTextNode(subtopics[j][i]);
+                    tag["p"].appendChild(text["p"]);
+                    element = document.getElementById("divs" + str(j + 1));
+                    element.appendChild(tag["p"]);
+                }
+                else {
+                    element = document.getElementById("divs" + str(j + 1));
+                    element.innerHTML = "";
+                }
+            }
+            if (bools["all"]) {
+                bools[id] = 0;
+                tagi.value = "less...";
+            }
+            else {
+                bools[id] = 1;
+                tagi.value = "more...";
+            }
+        }
+        if (bools["all"])
+            document.getElementById("input0").value = "LESS...";
+        else
+            document.getElementById("input0").value = "MORE...";
+        bools["all"] = not(bools["all"]);
+    }
+    function change() {
+        var idn = "";
+        id = this.id;
+        tagi = document.getElementById(id);
+        for (i = 5; i < len(id); i++) {
+            idn = idn + id[i];
+        }
+        for (i = 0; i < len(subtopics[idn - 1]); i++) {
+            if (bools[id]) {
+                tagi.value = "less...";
+                tag["p"] = document.createElement("p");
+                text["p"] = document.createTextNode(subtopics[idn - 1][i]);
+                tag["p"].appendChild(text["p"]);
+                element = document.getElementById("divs" + idn );
+                element.appendChild(tag["p"]);
+            }
+            else {
+                tagi.value = "more...";
+                element = document.getElementById("divs" + idn);
+                element.innerHTML = "";
+            }
+        }
+        bools[id] = not(bools[id]);
+        }
+    for (i = 0; i < len(contents); i++) {
+        istring = str(i + 1);
+        tag["div"] = document.createElement("div");
+        tag["div"].id = "div" + istring;
+        tag["h1"] = document.createElement("h2");
+        text["h1"] = document.createTextNode(contents[i].toUpperCase());
+        tag["h1"].appendChild(text["h1"]);
+        tag["div"].appendChild(tag["h1"]);
+        tag["input"] = document.createElement("input");
+        tag["input"].type = "submit";
+        tag["input"].value = "more...";
+        tag["input"].id = "input" + istring;
+        bools[tag["input"].id] = 1;
+        tag["input"].addEventListener("click", change);
+        tag["div"].appendChild(tag["input"]);
+        tag["divs"] = document.createElement("div");
+        tag["divs"].id = "divs" + istring;
+        tag["div"].appendChild(tag["divs"]);
+        element = document.getElementById("div0");
+        element.appendChild(tag["div"]);
+    }
+    </script>
+</body>
+</html>
+{% include "mfooter.html" %}
