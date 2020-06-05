@@ -1,0 +1,237 @@
+﻿{% include "mlayout.html" %}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<body>
+    <div id="canvas">
+       
+    </div>
+    <div id="canvas1">
+       
+    </div>
+    <script type="text/javascript" language="javascript">
+        function drawLine(canvas, startX, startY, endX, endY) {
+            canvas.beginPath();
+            canvas.moveTo(startX, startY);
+            canvas.lineTo(endX, endY);
+            canvas.stroke();
+        }
+        function drawArc(canvas, centerX, centerY, radius, startAngle, endAngle) {
+            canvas.beginPath();
+            canvas.arc(centerX, centerY, radius, startAngle * PI / 180, endAngle * PI / 180);
+            canvas.stroke();
+        }
+        function drawPieSlice(canvas, centerX, centerY, radius, startAngle, endAngle, color) {
+            canvas.fillStyle = color;
+            canvas.beginPath();
+            canvas.moveTo(centerX, centerY);
+            canvas.arc(centerX, centerY, radius, startAngle * PI / 180, endAngle * PI / 180);
+            canvas.closePath();
+            canvas.fill();
+        }
+        function drawText(canvas, text, x, y, width, color) {
+            canvas.fillStyle = color;
+            canvas.font = "bold " + str(width) + "px Arial";
+            canvas.fillText(str(text), x, y);
+        }
+        function drawRect(canvas, x, y, width, height, color, thickness) {
+            if (thickness == null)
+                thickness = 2;
+            canvas.beginPath();
+            canvas.rect(x, y, width, height);
+            canvas.fillStyle = color;
+            canvas.fill();
+            canvas.lineWidth = thickness;
+            canvas.strokeStyle = 'black';
+            canvas.stroke();
+        }
+        function arrayPercentage(arraysP) {
+            length = len(arraysP);
+            var arrayP = [];
+            total = 0;
+            for (i = 0; i < length; i++) {
+                total = total + arraysP[i];
+            }
+            for (i = 0; i < length; i++) { 
+                arrayP[i] = (arraysP[i] * 100) / total;// product_percentage(%) = (product * 100%) / total_products 
+            }
+            return arrayP;
+        }
+        function pointOnCircle(centerx, centery, radius, angle) {
+            angle = angle * PI / 180; 
+            x = centerx;
+            y = centery;
+            x += cos(angle) * radius;
+            y += sin(angle) * radius;
+            point = [x, y];
+            return point;
+        }
+        function checkId(id) {
+            if(tag[id]) {
+                id = checkId(str(id) + "1");
+            }
+            return id;
+        }
+        function greaterNumber(arraysG) {
+            arrayG = equalToArray(arraysG);
+            var greater = 0;
+            for (i = 0; i < len(arrayG); i++) {
+                if (arrayG[i] > greater)
+                    greater = arrayG[i];
+            }
+            return greater;
+        }
+        function smallerNumber(arraysS) {
+            arrayS = equalToArray(arraysS);
+            var smaller = arrayS[0];
+            for (i = 1; i < len(arrayS); i++) {
+                if (arrayS[i] < smaller)
+                    smaller = arrayS[i];
+            }
+            return smaller;
+        }
+        function differenceNumber(arraysD) {
+            arrayD = equalToArray(arraysD);
+            arrayD = sortingArrays(arrayD);
+            var difference = 0;
+            for (i = 0; i < len(arrayD); i++) {
+                if (Math.abs(arrayD[i] - arrayD[i + 1]) < difference)
+                    difference = Math.abs(arrayD[i] - arrayD[i + 1]);
+            }
+            return difference;
+        }
+        function sortingArrays(arraysS) {
+            arrayS = equalToArray(arraysS);
+            var t;
+            for (i = 0; i < len(arrayS); i++) {
+                for (j = 0; j < len(arrayS) - 1; j++) {
+                    if (arrayS[i] > arrayS[j]) {
+                        t = arrayS[i];
+                        arrayS[i] = arrayS[j];
+                        arrayS[j] = t;
+                    }
+                }
+            }
+            return arrayS;
+        }
+        function equalToArray(arraysE) {
+            arrayE = [];
+            for (i = 0; i < len(arraysE); i++)
+                arrayE[i] = arraysE[i];
+            return arrayE;
+        }
+        var canvas = [];
+        function pieChar(id, arrayname, array, diameter) {
+            element = document.getElementById(id);
+            id = checkId("canvas" + id);
+            tag["canvas"] = document.createElement("canvas");
+            radius = diameter / 2;
+            tag["canvas"].width = diameter + radius;
+            tag["canvas"].height = diameter;
+            tag["canvas"].id = "canvas" + id;
+            element.appendChild(tag["canvas"]);
+            canvas[id] = document.getElementById("canvas" + id);
+            canvas[id] = canvas[id].getContext("2d");
+            length = len(array);
+            clrlength = len(COLORZ);
+            arrayp = arrayPercentage(array);
+            var centerx = radius, centery = radius;
+            var suma = 0, sumb = 0, j = 0, anglea = 0, angleb = 0, x = 0, y = 0;
+            for (i = 0; i < length; i++) {
+                color = COLORZ[j]; j++;
+                if (j == clrlength)
+                    j = 0;
+                sumb = sumb + arrayp[i];
+                angleb = sumb * 360 / 100;
+                point = pointOnCircle(centerx, centery, radius, anglea);
+                x = point[0];
+                y = point[1];
+                drawPieSlice(canvas[id], centerx, centery, radius, anglea, angleb, color);
+                drawLine(canvas[id], centerx, centery, x, y);
+                suma = suma + arrayp[i];
+                anglea = suma * 360 / 100;
+            }
+            j = 0;
+            for (i = 0; i < length; i++) {
+                color = COLORZ[j]; j++;
+                if (j == clrlength)
+                    j = 0;
+                drawText(canvas[id], arrayname[i], diameter, (i + 1) * diameter / (length + length / 8), radius / 12, color);
+                drawText(canvas[id], str(float(arrayp[i], 2)) + "%", diameter + radius - radius/4, (i + 1) * diameter / (length + length / 8), radius / 12, color);
+                drawText(canvas[id], str(array[i]), diameter + radius / 2, (i + 1) * diameter / (length + length / 8), radius / 12, color);
+                sumb = sumb + arrayp[i];
+                angleb = sumb * 360 / 100;
+                point = pointOnCircle(centerx, centery, radius / 2 + radius / 4, (anglea + angleb) / 2);
+                x = point[0];
+                y = point[1];
+                drawText(canvas[id], str(float(arrayp[i], 1)) + "%", x, y, radius / 12, WHITE);
+                suma = suma + arrayp[i];
+                anglea = suma * 360 / 100;
+            }
+            drawArc(canvas[id], centerx, centery, radius, 0, 360);
+            tag[id] = true;
+        }
+        function barChar(id, arrayname, array, width, height) {
+            element = document.getElementById(id);
+            id = checkId("canvas" + id);
+            tag["canvas"] = document.createElement("canvas");
+            tag["canvas"].width = width;
+            tag["canvas"].height = height;
+            tag["canvas"].id = "canvas" + id;
+            element.appendChild(tag["canvas"]);
+            canvas[id] = document.getElementById("canvas" + id);
+            canvas[id] = canvas[id].getContext("2d");
+            length = len(array);
+            clrlength = len(COLORZ);
+            arrayp = arrayPercentage(array);
+            width = width - width / 4;
+            height = height - height / 5;
+            x = 0; suma = width / 10; j = 0;
+            greater = greaterNumber(array);
+            difference = differenceNumber(array);
+            smaller = smallerNumber(array);
+            drawRect(canvas[id], width / 10, 0, width, height, WHITE);
+            for (i = 0; i < length; i++) {
+                text = array[i];
+                textx = suma;
+                texty = greater + height / 6 - array[i];
+                textw = width / len(str(float(array[i], 1))) / length;
+                sidey = (i + 1) * (height + height / 5) / (length + length / 10);
+                sidew=
+                color = COLORZ[j]; j++;
+                if (j >= clrlength)
+                    j = 0;
+                if (greater + height / 5 - array[i] < height) {
+                    drawRect(canvas[id], suma, greater + height / 5 - array[i], width / length, height - (greater + height / 5 - array[i]), color);
+                }
+                else {
+                    texty = height;
+                    textw = width / len(str(float(greater, 1))) / length;
+                    textx += textw;
+                }
+                drawText(canvas[id], str(float(arrayp[i], 1)) + "%", suma, greater + height / 5 - array[i], width / len(str(float(arrayp[i], 1))) / length, color);
+                drawText(canvas[id], text, textx, texty, textw, color);
+                //side
+                drawText(canvas[id], arrayname[i], width + width / 8, sidey, height / 12 / 2, color);
+                drawText(canvas[id], str(float(arrayp[i], 1)) + "%", width + width / 3 - width / 2 / 4 + width / 11, sidey, height / 2 / 12, color);
+                drawText(canvas[id], str(array[i]), width + width / 3 - width / 2 / 4, sidey, height / 2 / 12, color);
+                suma += width / length;
+            }
+            tag[id] = true;
+        }
+        function lineChar() {
+
+        }
+        function areaChar() {
+
+        }
+        pieChar("canvas", ["animal", "bear", "cheetah", 'deer', 'elephant', 'fox', 'giraffe', 'young'], [4, 1, 1, 6, 1, 1, 3, 1], 200);
+        barChar("canvas1", ["animal", "bear", "cheetah", 'deer', 'elephant', 'fox', 'giraffe', 'young'], [400, 100, 100, 600, 100, 100, 300, 100], 500, 200);
+        barChar("canvas1", ["animal", "bear", "cheetah", 'deer', 'elephant', 'fox', 'giraffe', 'young'], [4000, 1000, 1000, 6000, 1000, 1000, 3000, 1000], 1000, 400);
+        barChar("canvas1", ["animal", "bear", "cheetah", 'deer', 'elephant', 'fox', 'giraffe', 'young',"animal", "bear", "cheetah", 'deer', 'elephant', 'fox', 'giraffe', 'young',"animal", "bear", "cheetah", 'deer', 'elephant', 'fox', 'giraffe', 'young',"animal", "bear", "cheetah", 'deer', 'elephant', 'fox', 'giraffe', 'young'], [40000, 10000, 10000, 60000, 10000, 10000, 30000, 10000,40000, 10000, 10000, 60000, 10000, 10000, 30000, 10000,40000, 10000, 10000, 60000, 10000, 10000, 30000, 10000,40000, 10000, 10000, 60000, 10000, 1, 3, 10000], 1500, 500);
+    </script>
+
+</body>
+</html>
+{% include "mfooter.html" %}
