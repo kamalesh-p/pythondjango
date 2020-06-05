@@ -1,3 +1,3 @@
 """
-package for mathematic application
+Package for the application.
 """
